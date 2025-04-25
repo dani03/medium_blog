@@ -14,12 +14,8 @@
                             <a href="#" class="inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active"
                                 aria-current="page">all</a>
                         </li>
-                        @foreach ($categories as $category)
-                            <li class="me-2">
-                                <a href="#" class="inline-block px-4 py-3 text-dark rounded-lg"
-                                    aria-current="page">{{ $category->name }}</a>
-                            </li>
-                        @endforeach
+
+                        <x-tabs :categories="$categories" />
 
                     </ul>
 
@@ -35,9 +31,8 @@
                     <ul
                         class="flex flex-wrap justify-center text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                         @forelse ($posts as $post)
-                            <x-post-item :post="$post" ></x-post-item>
+                            <x-post-item :post="$post" />
 
-                            {{ $posts->onEachSide(3)->links() }}
                         @empty
                             <div> no post found (aucun post )</div>
                         @endforelse
@@ -46,6 +41,7 @@
 
                     </ul>
 
+                    {{ $posts->onEachSide(3)->links() }}
                 </div>
             </div>
         </div>

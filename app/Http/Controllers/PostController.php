@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class PostController extends Controller
 {
@@ -15,7 +16,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $posts = Post::orderBy('created_at', 'DESC')->simplePaginate(4);
-        return view('dashboard', compact('categories', 'posts'));
+        return view('posts.index', compact('categories', 'posts'));
     }
 
     /**
@@ -23,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
