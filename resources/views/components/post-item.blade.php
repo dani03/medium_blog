@@ -1,4 +1,4 @@
- <div class=" mb-8 flex bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+ <div class=" w-full mb-8 flex min-w-64 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
      <div class="p-5 flex-1">
          <a href="#">
@@ -17,7 +17,11 @@
          </x-primary-button>
      </div>
      <a href="#" class="">
-         <img class=" w-48 h-full object-cover rounded-r-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"
-             alt="" />
+
+         <img class=" w-48 h-full max-h-72 object-cover rounded-r-lg" src="{{ Storage::url($post->image) }}" alt="" />
      </a>
  </div>
+
+
+ {{-- https://flowbite.com/docs/images/blog/image-1.jpg --}}
+

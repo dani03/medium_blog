@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -31,16 +34,26 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $request->validate([
-            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,svg', 'max:2048'],
-            'content' => 'required',
-            'title' => 'required',
-            'category_id' => 'required', 'exists:categories,id',
+        $data =  $request->all();
 
-        ]);
-        dd($request->all());
+
+        $image = $data['image'];
+        unset($data['image']);
+        $data['user_id'] = auth()->id();
+        $data['slug'] = Str::slug($data['title']);
+        $data['published_at'] = Carbon::now();
+
+        $imagePath = $image->store('posts', 'public');
+
+        $data['image'] = $imagePath;
+
+        Post::create($data);
+
+
+
+        return redirect()->route('dashboard');
     }
 
     /**
